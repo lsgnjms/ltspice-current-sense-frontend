@@ -1,0 +1,9 @@
+# LTspice output files
+*.raw
+*.log
+*.net
+*.op.raw
+*.plt
+*.fft
+# Python
+__pycache__/

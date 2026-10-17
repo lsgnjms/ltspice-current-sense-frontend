@@ -1,0 +1,14 @@
+* Current-sense front-end: DC sweep of load current 0-2 A (linearity)
+I1 0 sense DC 0
+* Shunt
+Rsense sense 0 0.1
+* Non-inverting amplifier, gain = 1 + Rf/Rg = 10
+Rf vout inn 9k
+Rg inn 0 1k
+* Single 5 V supply
+Vcc vcc 0 5
+* Op-amp (pins: In+ In- V+ V- OUT)
+XU1 sense inn vcc 0 vout opamp_1p
+.include opamp_1p.lib
+.dc I1 0 2 10m
+.end

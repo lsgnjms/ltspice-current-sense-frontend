@@ -1,0 +1,7 @@
+Current-sense front-end: ngspice reference results
+Peak V(sense) at 2 A          200.00 mV
+V(vout) plateau at 2 A        1.9998 V
+DC transfer gain (fit)        0.99990 V/A   (offset -0.00 uV)
+Max DC error, 0-2 A sweep     0.200 mV
+Low-frequency gain            -0.0009 dB V/A
+Closed-loop -3 dB bandwidth   99.8 kHz

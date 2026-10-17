@@ -1,0 +1,17 @@
+* Current-sense front-end: transient, pulsed load 0-2 A
+* Probe V(sense) and V(vout). Expected: V(vout) = 10 x V(sense) = 1 V/A.
+*
+* Load current: 0 -> 2 A, 1 ms delay, 10 us edges, 4 ms on, 10 ms period
+I1 0 sense PULSE(0 2 1m 10u 10u 4m 10m)
+* Shunt
+Rsense sense 0 0.1
+* Non-inverting amplifier, gain = 1 + Rf/Rg = 10
+Rf vout inn 9k
+Rg inn 0 1k
+* Single 5 V supply
+Vcc vcc 0 5
+* Op-amp (pins: In+ In- V+ V- OUT)
+XU1 sense inn vcc 0 vout opamp_1p
+.include opamp_1p.lib
+.tran 1u 30m 0 10u
+.end

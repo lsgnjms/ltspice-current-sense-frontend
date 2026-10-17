@@ -1,0 +1,21 @@
+* opamp_1p.lib
+* Behavioral single-pole op-amp model, compatible with LTspice and ngspice.
+*
+*   Open-loop DC gain  A0  = 1e5  (100 dB)
+*   Gain-bandwidth     GBW = 1 MHz  ->  dominant pole fp = GBW / A0 = 10 Hz
+*   Output clamped to the supply rails (single supply 0-5 V in this project)
+*
+* Pin order matches the LTspice "opamp2" symbol:  In+  In-  V+  V-  OUT
+*
+* Not modelled: input offset voltage, input bias current, noise, slew rate,
+* output current limit, finite output resistance.
+
+.subckt opamp_1p inp inn vcc vee out
+* Transconductance stage: 1 mS into 100 Meg = 1e5 V/V DC gain
+G1 0 n1 inp inn 1m
+R1 n1 0 100Meg
+* Dominant pole: fp = 1 / (2*pi*R1*C1) = 10 Hz
+C1 n1 0 159.155p
+* Output buffer, clamped to the rails
+B1 out 0 V=max(min(V(n1), V(vcc)), V(vee))
+.ends opamp_1p

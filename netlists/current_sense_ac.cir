@@ -1,0 +1,16 @@
+* Current-sense front-end: AC sweep (small-signal bandwidth)
+* Biased at 1 A so the output sits mid-range, away from the 0 V rail.
+* AC 1 on I1 means V(vout) reads directly as transimpedance in V/A.
+I1 0 sense DC 1 AC 1
+* Shunt
+Rsense sense 0 0.1
+* Non-inverting amplifier, gain = 1 + Rf/Rg = 10
+Rf vout inn 9k
+Rg inn 0 1k
+* Single 5 V supply
+Vcc vcc 0 5
+* Op-amp (pins: In+ In- V+ V- OUT)
+XU1 sense inn vcc 0 vout opamp_1p
+.include opamp_1p.lib
+.ac dec 100 1 100Meg
+.end
