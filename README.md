@@ -6,24 +6,12 @@ A load current is passed through a small sense resistor. The resulting millivolt
 
 ## Circuit
 
+![Circuit schematic](schematic/current_sense.png)
+
+The load current flows through Rsense, and the resulting voltage V(sense) drives the op-amp's non-inverting input. The amplifier gain is set by Rf and Rg:
+
 ```
-   Load current (I1, 0-2 A)
-          |
-          +----------+----------------> V(sense) --> (+) of op-amp
-          |          |
-        Rsense      (load return)
-        0.1 ohm
-          |
-         GND
-
-   Non-inverting amplifier:        V(vout) = V(sense) x (1 + Rf/Rg)
-                                              = V(sense) x (1 + 9k/1k) = 10 x V(sense)
-
-   vout --- Rf (9k) ---+--- (-) of op-amp
-                       |
-                      Rg (1k)
-                       |
-                      GND
+V(vout) = V(sense) x (1 + Rf/Rg) = V(sense) x (1 + 9k/1k) = 10 x V(sense)
 ```
 
 | Component | Value | Purpose |
@@ -74,14 +62,15 @@ V(vout) tracks the load current pulse with a constant 10x scaling of V(sense).
 ```bash
 bash scripts/run_ngspice.sh        # runs the three netlists, writes results/data/
 python3 scripts/plot_reference.py  # regenerates the plots and summary (needs numpy, matplotlib)
+python3 scripts/draw_schematic.py  # redraws the schematic image (needs schemdraw: pip install schemdraw)
 ```
 
 ## Repository layout
 
 ```
 netlists/    SPICE netlists: transient, DC sweep, AC sweep, and the op-amp model
-schematic/   LTspice schematic (.asc)
-scripts/     ngspice runner and plotting script
+schematic/   LTspice schematic (.asc) and schematic image (.png, .svg)
+scripts/     ngspice runner, plotting script, and schematic drawing script
 results/     plots and raw simulation data
 ```
 
@@ -101,4 +90,4 @@ results/     plots and raw simulation data
 
 ## Tools
 
-LTspice, ngspice, Python (NumPy, Matplotlib)
+LTspice, ngspice, Python (NumPy, Matplotlib, schemdraw)
